@@ -14,6 +14,23 @@ import random
 # コンピューターの手をこの中からランダムに選ぶ
 hands = ["グー", "チョキ", "パー"]
 
+# ------------------------------
+# 手の名前と絵文字を対応させる辞書
+# ------------------------------
+# 辞書（dict）を使うと、「グー」というキーから「✊」という値を
+# すぐに取り出すことができる
+hand_emojis = {
+    "グー": "✊",
+    "チョキ": "✌️",
+    "パー": "✋",
+}
+
+
+def hand_with_emoji(hand):
+    """手の名前に絵文字をつけた文字列を返す関数（例: "グー✊"）"""
+    # hand_emojis[hand] で、手の名前に対応する絵文字を取り出す
+    return hand + hand_emojis[hand]
+
 
 def get_computer_hand():
     """コンピューターの手をランダムに1つ選んで返す関数"""
@@ -25,7 +42,8 @@ def get_player_hand():
     """プレイヤーに手を入力してもらう関数"""
     while True:
         # input() でキーボードからの入力を受け取る
-        player_hand = input("グー・チョキ・パーのどれかを入力してください: ")
+        # 絵文字を見せることで、どれを選べばいいか分かりやすくする
+        player_hand = input("グー✊・チョキ✌️・パー✋のどれかを入力してください: ")
 
         # 入力された文字が hands リストの中にあるかチェックする
         if player_hand in hands:
@@ -77,9 +95,9 @@ def main():
         # コンピューターの手を取得する
         computer_hand = get_computer_hand()
 
-        # お互いの手を表示する
-        print("あなた: " + player_hand)
-        print("コンピューター: " + computer_hand)
+        # お互いの手を絵文字つきで表示する
+        print("あなた: " + hand_with_emoji(player_hand))
+        print("コンピューター: " + hand_with_emoji(computer_hand))
 
         # 勝敗を判定する
         result = judge(player_hand, computer_hand)
